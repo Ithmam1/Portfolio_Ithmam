@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ithmam Hussain Rafi — Product &amp; UI/UX Designer</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root{
+  --paper:#15111f;
+  --paper-deep:#1d1730;
+  --ink:#ece8f5;
+  --ink-soft:#a89dc2;
+  --rule:#352a52;
+  --clay:#a571f0;
+  --clay-soft:#7c4fd1;
+  --moss:#caa6ff;
+  --max:1080px;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Inter',sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; scroll-behavior:auto !important;}
+}
+
+a{color:inherit;}
+.wrap{max-width:var(--max); margin:0 auto; padding:0 32px;}
+.kicker{
+  font-family:'JetBrains Mono',monospace;
+  font-size:12px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--clay);
+}
+.serif{font-family:'Fraunces',serif;}
+
+/* ---------- NAV ---------- */
+nav{
+  position:fixed; top:0; left:0; right:0; z-index:50;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:20px 32px;
+  background:rgba(21,17,31,0.82);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--rule);
+}
+.nav-name{font-family:'Fraunces',serif; font-weight:500; font-size:18px; letter-spacing:.01em;}
+.nav-links{display:flex; gap:28px; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.06em; text-transform:uppercase;}
+.nav-links a{text-decoration:none; opacity:.7; transition:opacity .2s, color .2s; position:relative;}
+.nav-links a:hover, .nav-links a:focus-visible{opacity:1; color:var(--clay);}
+.nav-links a:focus-visible{outline:2px solid var(--clay); outline-offset:4px;}
+
+/* ---------- HERO ---------- */
+.hero{
+  min-height:100vh;
+  display:flex; flex-direction:column; justify-content:center;
+  padding-top:90px;
+  position:relative;
+  overflow:hidden;
+}
+.hero-grid{
+  position:absolute; inset:0; pointer-events:none; opacity:.5;
+}
+.hero-grid svg{width:100%; height:100%;}
+.hero-glow{
+  position:absolute; top:-200px; right:-200px; width:600px; height:600px; border-radius:50%;
+  background:radial-gradient(circle, rgba(165,113,240,0.30), transparent 70%);
+  pointer-events:none; filter:blur(10px);
+}
+.hero-inner{position:relative; z-index:2; display:grid; grid-template-columns:1fr 220px; gap:48px; align-items:center;}
+.hero .kicker{
+  opacity:0;
+  animation:rise .7s .15s ease forwards;
+}
+.hero h1{
+  font-size:clamp(44px, 8vw, 104px);
+  line-height:0.96;
+  font-weight:500;
+  margin:14px 0 0;
+  letter-spacing:-.01em;
+}
+.hero h1 .line{display:block; overflow:hidden;}
+.hero h1 .line span{display:inline-block; transform:translateY(110%); animation:rise .8s ease forwards;}
+.hero h1 .line:nth-child(1) span{animation-delay:.25s;}
+.hero h1 .line:nth-child(2) span{animation-delay:.4s;}
+@keyframes rise{
+  from{transform:translateY(110%); opacity:0;}
+  to{transform:translateY(0); opacity:1;}
+}
+.hero .roles{
+  margin-top:28px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:14px;
+  color:var(--ink-soft);
+  display:flex; flex-wrap:wrap; gap:10px;
+  opacity:0;
+  animation:fadeUp .7s .8s ease forwards;
+}
+.hero .roles span{
+  border:1px solid var(--rule);
+  padding:6px 12px;
+  border-radius:2px;
+  background:var(--paper-deep);
+}
+@keyframes fadeUp{
+  from{opacity:0; transform:translateY(14px);}
+  to{opacity:1; transform:translateY(0);}
+}
+.hero-photo{
+  width:220px; height:260px;
+  border:1px solid var(--rule);
+  background:var(--paper-deep);
+  position:relative;
+  overflow:hidden;
+  opacity:0;
+  animation:fadeUp .8s .5s ease forwards;
+}
+.hero-photo img{width:100%; height:100%; object-fit:cover; display:block;}
+.hero-photo .ph-placeholder{
+  position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink-soft); text-align:center; padding:14px; gap:8px;
+}
+.hero-photo .ph-placeholder svg{opacity:.5;}
+.hero-photo::after{
+  content:''; position:absolute; inset:0; border:1px solid var(--clay); opacity:.4;
+  transform:translate(8px,8px);
+  pointer-events:none;
+}
+@media (max-width:700px){ .hero-inner{grid-template-columns:1fr;} .hero-photo{width:140px; height:170px; order:-1;} }
+
+.scroll-cue{
+  position:absolute; bottom:36px; left:32px;
+  font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink-soft);
+  display:flex; align-items:center; gap:10px;
+  opacity:0; animation:fadeUp .7s 1.1s ease forwards;
+}
+.scroll-cue .ln{width:32px; height:1px; background:var(--ink-soft); position:relative; overflow:hidden;}
+.scroll-cue .ln::after{
+  content:''; position:absolute; left:-100%; top:0; width:100%; height:100%; background:var(--clay);
+  animation:slide 1.8s ease-in-out infinite;
+}
+@keyframes slide{ 0%{left:-100%;} 50%{left:0%;} 100%{left:100%;} }
+
+/* ---------- SECTION SHELL ---------- */
+section{padding:120px 0; border-bottom:1px solid var(--rule);}
+.section-head{
+  display:flex; align-items:baseline; gap:18px; margin-bottom:56px;
+}
+.section-num{font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--clay);}
+.section-head h2{font-size:clamp(30px,4vw,46px); font-weight:500; margin:0;}
+.reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
+.reveal.in{opacity:1; transform:translateY(0);}
+
+/* ---------- ABOUT ---------- */
+.about-grid{display:grid; grid-template-columns:1.3fr .7fr; gap:64px;}
+.about-grid p{font-size:19px; line-height:1.7; color:var(--ink); font-weight:400;}
+.about-grid p + p{margin-top:18px; color:var(--ink-soft);}
+.stat-block{border-left:1px solid var(--rule); padding-left:28px; display:flex; flex-direction:column; gap:26px;}
+.stat{}
+.stat .num{font-family:'Fraunces',serif; font-size:42px; font-weight:500; color:var(--clay);}
+.stat .lbl{font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-soft); margin-top:2px;}
+@media (max-width:760px){ .about-grid{grid-template-columns:1fr;} .stat-block{border-left:none; border-top:1px solid var(--rule); padding-left:0; padding-top:24px; flex-direction:row; flex-wrap:wrap; gap:32px;} }
+
+/* ---------- EXPERIENCE ---------- */
+.xp-row{
+  display:grid; grid-template-columns:160px 1fr;
+  gap:32px;
+  padding:30px 0;
+  border-top:1px solid var(--rule);
+}
+.xp-row:first-of-type{border-top:none;}
+.xp-time{font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--moss); padding-top:4px;}
+.xp-role{font-family:'Fraunces',serif; font-size:24px; font-weight:500; margin:0 0 4px;}
+.xp-co{font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--clay); margin-bottom:12px;}
+.xp-desc{color:var(--ink-soft); font-size:15.5px; line-height:1.65; max-width:620px;}
+@media (max-width:640px){ .xp-row{grid-template-columns:1fr; gap:8px;} }
+
+/* ---------- PROJECTS ---------- */
+.proj-sub{
+  font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink-soft); margin:0 0 18px;
+}
+.proj-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:2px; background:var(--rule); border:1px solid var(--rule); margin-bottom:48px;}
+.proj-card{
+  background:var(--paper);
+  padding:34px;
+  position:relative;
+  min-height:200px;
+  transition:background .25s ease;
+}
+.proj-card:hover{background:var(--paper-deep);}
+.proj-index{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink-soft);}
+.proj-name{font-family:'Fraunces',serif; font-size:25px; font-weight:500; margin:10px 0 10px;}
+.proj-desc{font-size:14.5px; line-height:1.6; color:var(--ink-soft); max-width:380px;}
+.proj-tag{
+  position:absolute; top:30px; right:30px;
+  font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--clay); opacity:0; transition:opacity .25s ease;
+}
+.proj-card:hover .proj-tag{opacity:1;}
+.spec-line{
+  position:absolute; left:34px; bottom:30px; right:34px; height:1px; background:var(--rule);
+  opacity:0; transition:opacity .25s ease;
+}
+.proj-card:hover .spec-line{opacity:1;}
+.spec-line::before, .spec-line::after{
+  content:''; position:absolute; top:-3px; width:1px; height:7px; background:var(--rule);
+}
+.spec-line::before{left:0;} .spec-line::after{right:0;}
+@media (max-width:760px){ .proj-grid{grid-template-columns:1fr;} }
+
+/* ---------- SKILLS ---------- */
+.skills-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:40px 32px;}
+.skill-cat h3{
+  font-family:'JetBrains Mono',monospace; font-size:12px; text-transform:uppercase; letter-spacing:.08em;
+  color:var(--clay); margin:0 0 16px; padding-bottom:10px; border-bottom:1px solid var(--rule);
+}
+.skill-cat ul{list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:8px;}
+.skill-cat li{
+  font-size:13px; padding:6px 11px; border:1px solid var(--rule); border-radius:2px; color:var(--ink-soft);
+  background:var(--paper-deep);
+}
+@media (max-width:760px){ .skills-grid{grid-template-columns:1fr 1fr;} }
+@media (max-width:520px){ .skills-grid{grid-template-columns:1fr;} }
+
+/* ---------- FOOTER ---------- */
+footer{padding:70px 0 50px;}
+.foot-grid{display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:24px;}
+.foot-grid h2{font-family:'Fraunces',serif; font-size:clamp(34px,5vw,56px); font-weight:500; margin:0 0 18px;}
+.foot-links{display:flex; gap:24px; font-family:'JetBrains Mono',monospace; font-size:13px;}
+.foot-links a{text-decoration:none; border-bottom:1px solid var(--ink); padding-bottom:2px;}
+.foot-meta{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--ink-soft); margin-top:50px; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-name">Ithmam<span style="color:var(--clay)">.</span></div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-grid" aria-hidden="true">
+    <svg viewBox="0 0 1080 800" preserveAspectRatio="none">
+      <line x1="270" y1="0" x2="270" y2="800" stroke="#352a52" stroke-width="1"/>
+      <line x1="540" y1="0" x2="540" y2="800" stroke="#352a52" stroke-width="1"/>
+      <line x1="810" y1="0" x2="810" y2="800" stroke="#352a52" stroke-width="1"/>
+    </svg>
+  </div>
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="wrap hero-inner">
+    <div>
+      <div class="kicker">Sylhet, Bangladesh — Design / Engineering</div>
+      <h1>
+        <span class="line"><span>Ithmam Hussain</span></span>
+        <span class="line"><span class="serif" style="font-style:italic; color:var(--clay-soft);">Rafi</span></span>
+      </h1>
+      <div class="roles">
+        <span>UI/UX Designer</span>
+        <span>Product Designer</span>
+        <span>Django Backend Developer</span>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="Profile.jpeg" alt="Ithmam Hussain Rafi">
+    </div>
+  </div>
+  <div class="scroll-cue"><span class="ln"></span> Scroll</div>
+</section>
+
+<section id="about">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-num">01</span>
+      <h2>About</h2>
+    </div>
+    <div class="about-grid reveal">
+      <div>
+        <p>I'm a Computer Science &amp; Engineering student with over three years of professional experience in UI/UX and product design, alongside hands-on work in Django backend development.</p>
+        <p>I specialize in user-centered digital products that balance business objectives with intuitive experience. Working across both design and development lets me bridge user needs and technical implementation — shipping solutions that are thoughtful and scalable.</p>
+      </div>
+      <div class="stat-block">
+        <div class="stat"><div class="num">3+</div><div class="lbl">Years in UI/UX &amp; Product Design</div></div>
+        <div class="stat"><div class="num">12</div><div class="lbl">Shipped Products, Apps &amp; Platforms</div></div>
+        <div class="stat"><div class="num">2</div><div class="lbl">Disciplines — Design &amp; Backend Dev</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-num">02</span>
+      <h2>Work Experience</h2>
+    </div>
+
+    <div class="xp-row reveal">
+      <div class="xp-time">01 yr<br>Current</div>
+      <div>
+        <div class="xp-role">Product Designer</div>
+        <div class="xp-co">Faith IT</div>
+        <div class="xp-desc">Led the end-to-end product design process for web and mobile applications. Conducted user research, created user flows, wireframes, prototypes, and high-fidelity designs, while collaborating closely with developers and stakeholders to deliver user-centered solutions aligned with business goals.</div>
+      </div>
+    </div>
+
+    <div class="xp-row reveal">
+      <div class="xp-time">02 yrs</div>
+      <div>
+        <div class="xp-role">UI/UX Designer</div>
+        <div class="xp-co">Mangrove Software & IT</div>
+        <div class="xp-desc">Designed intuitive web and mobile application interfaces, conducted user research and usability testing, created wireframes and prototypes, and collaborated with development teams to ensure successful implementation. Maintained design systems and improved product usability across multiple projects.</div>
+      </div>
+    </div>
+
+    <div class="xp-row reveal">
+      <div class="xp-time">Freelance</div>
+      <div>
+        <div class="xp-role">UI/UX Designer &amp; Project Manager</div>
+        <div class="xp-co">Fiverr</div>
+        <div class="xp-desc">Worked with international clients on UI/UX design projects, managing project requirements, client communication, design delivery, and stakeholder coordination. Successfully delivered high-quality design solutions across multiple industries.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-num">03</span>
+      <h2>Projects</h2>
+    </div>
+
+    <p class="proj-sub reveal">Design &amp; Product</p>
+    <div class="proj-grid reveal">
+      <div class="proj-card">
+        <div class="proj-index">P-01</div>
+        <div class="proj-tag">Travel · Booking</div>
+        <div class="proj-name">Prairie Skies</div>
+        <div class="proj-desc">Tourism and booking management platform designed to simplify travel planning, reservations, and customer management.</div>
+        <div class="spec-line"></div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-index">P-02</div>
+        <div class="proj-tag">Pet Care · SaaS</div>
+        <div class="proj-name">IVET</div>
+        <div class="proj-desc">Pet care management system that streamlines appointment scheduling, pet records, customer communication, and service management.</div>
+        <div class="spec-line"></div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-index">P-03</div>
+        <div class="proj-tag">Hospitality · ERP</div>
+        <div class="proj-name">Restaurant ERP System</div>
+        <div class="proj-desc">Comprehensive restaurant management solution featuring inventory tracking, order management, staff management, and reporting.</div>
+        <div class="spec-line"></div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-index">P-04</div>
+        <div class="proj-tag">Operations</div>
+        <div class="proj-name">Inventory Management System</div>
+        <div class="proj-desc">Inventory tracking and stock management platform designed to optimize business operations and inventory control.</div>
+        <div class="spec-line"></div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-index">P-05</div>
+        <div class="proj-tag">E-commerce</div>
+        <div class="proj-name">Brand Galleria</div>
+        <div class="proj-desc">E-commerce platform focused on enhancing online shopping experiences through intuitive browsing and streamlined purchasing.</div>
+        <div class="spec-line"></div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-index">P-06</div>
+        <div class="proj-tag">Retail · Brand</div>
+        <div class="proj-name">Wolf</div>
+        <div class="proj-desc">Sneaker brand website designed to provide a modern shopping experience with strong visual branding and user engagement.</div>
+        <div class="spec-line"></div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-index">P-07</div>
+        <div class="proj-tag">Real Estate</div>
+        <div class="proj-name">NRDL</div>
+        <div class="proj-desc">Real estate platform designed to simplify property listing, management, and customer interactions.</div>
+        <div class="spec-line"></div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-index">P-08</div>
+        <div class="proj-tag">Flutter · EdTech</div>
+        <div class="proj-name">E-Learning App</div>
+        <div class="proj-desc">Flutter-based learning platform with course management, quizzes, progress tracking, JWT auth, and real-time content delivery.</div>
+        <div class="spec-line"></div>
+      </div>
+    </div>
+
+    <p class="proj-sub reveal">Backend &amp; Full-Stack (Django)</p>
+    <div class="proj-grid reveal">
+      <div class="proj-card">
+        <div class="proj-index">P-09</div>
+        <div class="proj-tag">Django · CMS</div>
+        <div class="proj-name">Blog Website</div>
+        <div class="proj-desc">Full-stack blogging platform built with Django, covering post management, categories, comments, and a clean publishing workflow end to end.</div>
+        <div class="spec-line"></div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-index">P-10</div>
+        <div class="proj-tag">Django · E-commerce</div>
+        <div class="proj-name">E-Commerce Platform</div>
+        <div class="proj-desc">Django-powered online store with product catalog, cart, checkout, and order management built on a REST API backend.</div>
+        <div class="spec-line"></div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-index">P-11</div>
+        <div class="proj-tag">Django · Real Estate</div>
+        <div class="proj-name">Real Estate Platform</div>
+        <div class="proj-desc">Property listing and management backend handling listings, agents, inquiries, and search, built with Django and PostgreSQL.</div>
+        <div class="spec-line"></div>
+      </div>
+      <div class="proj-card">
+        <div class="proj-index">P-12</div>
+        <div class="proj-tag">Flutter · Gamified Learning</div>
+        <div class="proj-name">Code_Leap</div>
+        <div class="proj-desc">Programming learning platform with a REST API and database backend, plus gamified learning mechanics — XP, streaks, and reminders — to keep learners coming back.</div>
+        <div class="spec-line"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="section-num">04</span>
+      <h2>Skills</h2>
+    </div>
+    <div class="skills-grid reveal">
+      <div class="skill-cat">
+        <h3>Design</h3>
+        <ul>
+          <li>UI Design</li><li>UX Design</li><li>Product Design</li><li>User Research</li>
+          <li>Wireframing</li><li>Prototyping</li><li>User Flow Design</li><li>Design Systems</li>
+          <li>Usability Testing</li><li>Information Architecture</li><li>Responsive Design</li>
+        </ul>
+      </div>
+      <div class="skill-cat">
+        <h3>Design Tools</h3>
+        <ul>
+          <li>Figma</li><li>Adobe XD</li><li>Photoshop</li><li>Illustrator</li>
+        </ul>
+      </div>
+      <div class="skill-cat">
+        <h3>Development</h3>
+        <ul>
+          <li>Python</li><li>Django</li><li>Django REST Framework</li><li>REST APIs</li>
+          <li>JWT Authentication</li><li>PostgreSQL</li><li>SQLite</li><li>HTML</li><li>CSS</li>
+          <li>JavaScript</li><li>Git &amp; GitHub</li>
+        </ul>
+      </div>
+      <div class="skill-cat">
+        <h3>Mobile Development</h3>
+        <ul><li>Flutter</li><li>Dart</li></ul>
+      </div>
+      <div class="skill-cat">
+        <h3>Professional</h3>
+        <ul>
+          <li>Project Management</li><li>Team Collaboration</li><li>Problem Solving</li>
+          <li>Agile Development</li><li>Client Communication</li><li>Requirements Analysis</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="kicker" style="margin-bottom:14px;">Let's work together</div>
+        <h2>Say hello.</h2>
+      </div>
+      <div class="foot-links">
+        <a href="mailto:rafiithmamhussain@gmail.com">Email</a>
+        <a href="https://www.linkedin.com/in/ithmam-hussain-a19455279/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://dribbble.com/ithmam" target="_blank" rel="noopener">Dribbble</a>
+        <a href="https://github.com/Ithmam1" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+    <div class="foot-meta">
+      <span>Ithmam Hussain Rafi — UI/UX &amp; Product Designer / Django Developer</span>
+      <span>Based in Sylhet, Bangladesh</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+const revealEls = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+}, {threshold:0.15});
+revealEls.forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
